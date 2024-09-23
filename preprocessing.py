@@ -22,7 +22,7 @@ age_max = df['age'].max()
 age_range = age_max - age_min
 
 # Calculation for variance, sum, etc.
-age_var = df['age'].var()
+age_med = df['age'].median()
 age_sum = df['age'].sum()
 age_count = df['age'].count()
 
@@ -35,11 +35,11 @@ print("\nChildren Column: ")
 print(child_stats)
 print(f"\n{'-'*40}\n")  # Separator for better readability
 
-print(f"RELEVANT AGE VALUES: ")
-print(f"\nAge Range: {age_range}")
-print(f"Age Variance: {age_var:.4f}")
-print(f"Age Sum: {age_sum}")
-print(f"Age Count: {age_count}")
+print(f"RELEVANT AGE VALUES: \n")
+print(f"Age Range: {age_range}")
+print(f"Minimum Age: {age_min}")
+print(f"Maximum Age: {age_max}")
+print(f"Average Age: {age_med}")
 print(f"\n{'-'*40}\n")  # Separator for better readability
 
 # Customer segregation based on account type (savings or current)
