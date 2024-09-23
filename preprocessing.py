@@ -1,81 +1,88 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-print(f"GROUP 3: CASE STUDY - DATA PREPROCESSING")
+print(f"========== GROUP 3: CASE STUDY - DATA PREPROCESSING ==========\n")
 
-print(f"~SECTION ON DECRIPTIVE ANALYTICS AND VISUALIZATION\n")
-#Loading provided dataset
+print(f"~ SECTION ON DESCRIPTIVE ANALYTICS AND VISUALIZATION ~\n")
+
+# Loading the provided dataset
 path = 'bankdata.csv'
 df = pd.read_csv(path)
 
-#Section on Descriptive Statistics
+# Descriptive Statistics for Age
+print(f"--- AGE STATISTICS ---")
 age_stats = df['age'].describe()
-age_range = df['age'].max() - df['age'].min()
+age_min = df['age'].min()
+age_max = df['age'].max()
+age_range = age_max - age_min
 
-#Calculation on variance, sum, etc
+# Calculation for variance, sum, etc.
 age_var = df['age'].var()
 age_sum = df['age'].sum()
 age_count = df['age'].count()
 
-#Printing of DS Section
-print("Age Statistics: ")
+# Printing Descriptive Statistics Section
 print(age_stats)
-print(f"Age Range: {age_range}")
-print(f"Age Variance: {age_var}")
+print(f"\nAge Range: {age_range}")
+print(f"Age Variance: {age_var:.4f}")
 print(f"Age Sum: {age_sum}")
 print(f"Age Count: {age_count}")
+print(f"\n{'-'*40}\n")  # Separator for better readability
 
-
-#Customer segregation based on account type (savings or current)
-savings_acc_count = df[df['save_act'] == 'Yes'].shape[0]
-current_acc_count = df[df['current_act'] == 'Yes'].shape[0]
+# Customer segregation based on account type (savings or current)
+print(f"--- SEGREGATION OF CUSTOMER ACCOUNT TYPE ---")
+savings_acc_count = df[df['save_act'] == 'YES'].shape[0]
+current_acc_count = df[df['current_act'] == 'YES'].shape[0]
 
 print(f"Savings Account Count: {savings_acc_count}")
 print(f"Current Account Count: {current_acc_count}")
+print(f"\n{'-'*40}\n")
 
-#Pivot report on relationship between Civil Status and no. of children
+# Pivot report on the relationship between Civil Status and Number of Children
+print(f"--- PIVOT REPORT: MARRIED VS. NUMBER OF CHILDREN ---")
 pivot_report = df.pivot_table(index='married', values='children', aggfunc='mean')
-
-print("Pivot report for Married vs. Number of Children:")
 print(pivot_report)
+print(f"\n{'-'*40}\n")
 
-#Calculation of means of specified attributes
+# Calculation of means of Age, Income, and Children by PEP, Married, and Has Car
+print(f"--- MEANS OF AGE, INCOME, AND CHILDREN (BY PEP, MARRIED, AND CAR) ---")
 grouped_means = df.groupby(['pep', 'married', 'car'])[['age', 'income', 'children']].mean()
-
-print("Means of Age, Income, and Children by PEP, Married, and Has Car:")
 print(grouped_means)
+print(f"\n{'-'*40}\n")
 
-
-#Pattern analysis for PEP purchase and Civil status
+# Pattern analysis for PEP purchase and Civil status
+print(f"--- PATTERN ANALYSIS: AGE AND PEP ---")
 pep_age_pattern = df.groupby('pep')['age'].mean()
-pep_children_pattern = df.groupby(['pep', 'married'])['children'].mean()
-
-print("Pattern of Age vs PEP:")
 print(pep_age_pattern)
-print("Pattern of Number of Children vs PEP and Marriage:")
-print(pep_children_pattern)
 
-print("\n~END OF DESCRIPTIVE ANALYTICS AND VISUALIZATION\n")
+print(f"\n--- PATTERN ANALYSIS: NUMBER OF CHILDREN, PEP, AND MARRIAGE ---")
+pep_children_pattern = df.groupby(['pep', 'married'])['children'].mean()
+print(pep_children_pattern)
+print(f"\n{'-'*40}\n")
+
+print(f"~ END OF DESCRIPTIVE ANALYTICS AND VISUALIZATION ~\n")
 
 #########
 
-print(f"~SECTION ON DATA TRANSFORMATION")
+print(f"~ SECTION ON DATA TRANSFORMATION ~\n")
 
-#Normalizing Income into [0,1] scale
+# Normalizing Income into [0,1] scale
 scaler = MinMaxScaler()
 df['income_Normalized'] = scaler.fit_transform(df[['income']])
 
-print("Normalized Income Column:")
+print(f"--- NORMALIZED INCOME COLUMN ---")
 print(df[['income', 'income_Normalized']].head())
+print(f"\n{'-'*40}\n")
 
-#Equal Depth (frequency)
+# Equal Depth (frequency) binning
 df['income_Binned'] = pd.qcut(df['income'], q=3, labels=["Low", "Medium", "High"])
 
-print("Binned Income Column:")
+print(f"--- BINNED INCOME COLUMN ---")
 print(df[['income', 'income_Binned']].head())
+print(f"\n{'-'*40}\n")
 
-#Dummy values for region
+# Dummy values for Region
+print(f"--- DUMMY VARIABLES FOR REGION ---")
 df_with_dummies = pd.get_dummies(df, columns=['region'], drop_first=False)
-
-print("Dataframe with Dummy Variables for Region:")
 print(df_with_dummies.head())
+print(f"\n{'='*50}\n")
