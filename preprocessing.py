@@ -101,54 +101,54 @@ print(df_with_dummies.head())
 print(f"\n{'='*50}\n")
 
 
-# #SECTION ON VISUALIZATION
-#
-# # Create a pivot table (assuming df is already loaded)
-# pivot_report = df.pivot_table(index='married', values='children', aggfunc='mean').round(4)
-#
-# # Plotting the pivot table data as a bar chart
-# plt.figure(figsize=(6, 4))  # Set the figure size
-# pivot_report.plot(kind='bar', legend=False, color='skyblue')
-#
-# # Adding labels and title
-# plt.title('Average Number of Children by Marital Status')
-# plt.xlabel('Married')
-# plt.ylabel('Average Number of Children')
-#
-# # Adding data labels to the bars
-# for index, value in enumerate(pivot_report['children']):
-#     plt.text(index, value, f'{value:.2f}', ha='center', va='bottom')
-#
-# # Display the plot
-# plt.tight_layout()
-# plt.show()
-#
-# #VISUALIZATION VIA HEATMAP
-# import seaborn as sns
-#
-# # Example: Pivot table with two variables for heatmap
-# pivot_heatmap = df.pivot_table(index='married', columns='pep', values='children', aggfunc='mean')
-#
-# # Plotting heatmap
-# plt.figure(figsize=(6, 4))
-# sns.heatmap(pivot_heatmap, annot=True, cmap='coolwarm')
-#
-# # Add labels
-# plt.title('Heatmap of Children by Marital Status and PEP')
-# plt.xlabel('PEP Status')
-# plt.ylabel('Marital Status')
-#
-# plt.show()
-#
-#
-# pep_children_pattern = df.groupby(['pep', 'married'])['children'].mean().unstack()
-#
-# plt.figure(figsize=(6, 4))
-# sns.heatmap(pep_children_pattern, annot=True, cmap='coolwarm')
-#
-# # Adding labels and title
-# plt.title('Mean Number of Children by PEP and Marriage Status')
-# plt.xlabel('Married')
-# plt.ylabel('PEP Status')
-#
-# plt.show()
+#SECTION ON VISUALIZATION
+
+# Create a pivot table (assuming df is already loaded)
+pivot_report = df.pivot_table(index='married', values='children', aggfunc='mean').round(4)
+
+# Plotting the pivot table data as a bar chart
+plt.figure(figsize=(6, 4))  # Set the figure size
+pivot_report.plot(kind='bar', legend=False, color='skyblue')
+
+# Adding labels and title
+plt.title('Average Number of Children by Marital Status')
+plt.xlabel('Married')
+plt.ylabel('Average Number of Children')
+
+# Adding data labels to the bars
+for index, value in enumerate(pivot_report['children']):
+    plt.text(index, value, f'{value:.2f}', ha='center', va='bottom')
+
+# Display the plot
+plt.tight_layout()
+plt.show()
+
+#VISUALIZATION VIA HEATMAP
+import seaborn as sns
+
+# Example: Pivot table with two variables for heatmap
+pivot_heatmap = df.pivot_table(index='married', columns='pep', values='children', aggfunc='mean')
+
+# Plotting heatmap
+plt.figure(figsize=(6, 4))
+sns.heatmap(pivot_heatmap, annot=True, cmap='coolwarm')
+
+# Add labels
+plt.title('Heatmap of Children by Marital Status and PEP')
+plt.xlabel('PEP Status')
+plt.ylabel('Marital Status')
+
+plt.show()
+
+
+pep_children_pattern = df.groupby(['pep', 'married'])['children'].mean().unstack()
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(pep_children_pattern, annot=True, cmap='coolwarm')
+
+# Adding labels and title
+plt.title('Mean Number of Children by PEP and Marriage Status')
+plt.xlabel('Married')
+plt.ylabel('PEP Status')
+
+plt.show()
