@@ -93,5 +93,7 @@ print(f"\n{'-'*40}\n")
 # Dummy variables for Region
 print(f"--- DUMMY VARIABLES FOR REGION ---")
 df_with_dummies = pd.get_dummies(df, columns=['region'], drop_first=False)
-print(df_with_dummies.head())
+columns_to_display = list(df_with_dummies.columns[:2]) + list(df_with_dummies.columns[-4:])
+print(df_with_dummies[columns_to_display].head())
+#print(df_with_dummies.head())
 print(f"\n{'='*50}\n")
